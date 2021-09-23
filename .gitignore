@@ -1,0 +1,14 @@
+# Depedencies
+*/node_modules/
+/*/.pnp
+/*.pnp.js
+
+# Production
+*/build
+*/.netlify/
+
+# Misc
+*/*.env*
+*/npm-debug.log*
+*/yarn-debug.log*
+*/yarn-error.log*
