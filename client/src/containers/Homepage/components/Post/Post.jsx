@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { FiEdit } from 'react-icons/fi';
 import { FaHeart, FaTrash } from 'react-icons/fa';
+
+import { useCurrentIdAndFormContext } from '../../../../context/currentIdAndForm';
 import {
   Image,
   ImageWrapper,
@@ -14,12 +16,19 @@ import {
 } from './Post.style';
 
 const Post = ({ post }) => {
+  const { setCurrentId, setIsFormActive } = useCurrentIdAndFormContext();
+
+  const editPostHandler = () => {
+    setCurrentId(post._id);
+    setIsFormActive((prev) => !prev);
+  };
+
   return (
     <PostContainer>
       <ImageWrapper>
         <Image src={post?.selectedFile} alt={post?.title} />
         <FlexField top>
-          <Button upper edit>
+          <Button upper edit onClick={editPostHandler}>
             <FiEdit />
           </Button>
           <Button upper remove>

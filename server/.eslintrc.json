@@ -12,6 +12,8 @@
   "rules": {
     "no-unused-vars": "warn",
     "no-console": "off",
+    "consistent-return": "off",
+    "comma-dangle": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",

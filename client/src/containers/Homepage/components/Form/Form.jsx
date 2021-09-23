@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { MdArrowDropUp } from 'react-icons/md';
 import { IoCheckmark, IoClose } from 'react-icons/io5';
 
-import { createPost } from '../../../../redux/actions/posts';
+import { useCurrentIdAndFormContext } from '../../../../context/currentIdAndForm';
+import { createPost, updatePost } from '../../../../redux/actions/posts';
 import {
   Button,
   FormBox,
@@ -17,7 +18,10 @@ import {
   Span,
 } from './Form.style';
 
-const Form = ({ isFormActive, setActiveForm }) => {
+const Form = () => {
+  const { posts } = useSelector((state) => state);
+  const { currentId, isFormActive, setCurrentId, setIsFormActive } =
+    useCurrentIdAndFormContext();
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
@@ -27,7 +31,14 @@ const Form = ({ isFormActive, setActiveForm }) => {
   });
   const dispatch = useDispatch();
 
-  const clearPostData = () =>
+  const exactPost = posts.find((post) => post._id === currentId);
+
+  useEffect(() => {
+    setPostData(exactPost);
+  }, [exactPost]);
+
+  const handleClear = () => {
+    setCurrentId(null);
     setPostData({
       creator: '',
       title: '',
@@ -35,27 +46,31 @@ const Form = ({ isFormActive, setActiveForm }) => {
       message: '',
       selectedFile: '',
     });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(createPost(postData));
-
-    clearPostData();
-  };
-
-  const handleClear = () => {
-    clearPostData();
   };
 
   const handleClose = () => {
-    setActiveForm((prev) => !prev);
-    clearPostData();
+    setIsFormActive((prev) => !prev);
+    handleClear();
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+
+    handleClose();
   };
 
   return (
     <FormContainer active={isFormActive}>
       <FormBox>
-        <H3>Tell them your story and memory</H3>
+        <H3>
+          {currentId ? 'Update your memory' : 'Tell them your story and memory'}
+        </H3>
         <Button arrow onClick={handleClose}>
           <MdArrowDropUp />
         </Button>
@@ -64,7 +79,7 @@ const Form = ({ isFormActive, setActiveForm }) => {
             <Input
               type="text"
               name="title"
-              value={postData.title}
+              value={postData?.title}
               onChange={(e) => {
                 setPostData({ ...postData, title: e.target.value });
               }}
@@ -74,7 +89,7 @@ const Form = ({ isFormActive, setActiveForm }) => {
             <Input
               type="text"
               name="creator"
-              value={postData.creator}
+              value={postData?.creator}
               onChange={(e) => {
                 setPostData({ ...postData, creator: e.target.value });
               }}
@@ -85,7 +100,7 @@ const Form = ({ isFormActive, setActiveForm }) => {
           <Input
             type="text"
             name="tags"
-            value={postData.tags}
+            value={postData?.tags}
             onChange={(e) => {
               setPostData({
                 ...postData,
@@ -98,7 +113,7 @@ const Form = ({ isFormActive, setActiveForm }) => {
           <Textarea
             type="text"
             name="message"
-            value={postData.message}
+            value={postData?.message}
             onChange={(e) => {
               setPostData({ ...postData, message: e.target.value });
             }}
@@ -106,7 +121,7 @@ const Form = ({ isFormActive, setActiveForm }) => {
             required
           />
           <FlexField buttons>
-            {postData.selectedFile ? (
+            {postData?.selectedFile ? (
               <Span>File imported</Span>
             ) : (
               <Span>No file imported</Span>
