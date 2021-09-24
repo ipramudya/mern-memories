@@ -5,5 +5,4 @@ export const TopbarContainer = styled.div`
   margin: 2em auto;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
 `;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
 import { FaGoogle } from 'react-icons/fa';
 
@@ -9,8 +10,7 @@ import { BreakLine, Button, FlexField, Input, Text } from './AuthForm.style';
 const SignIn = ({ isShowPassword, handleRegister }) => {
   const [state, setstate] = useState('');
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state);
-  console.log(auth);
+  const history = useHistory();
 
   const handleChange = (event) => {};
 
@@ -19,6 +19,7 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
     const googleTokenId = res?.tokenId;
     console.log(res);
     dispatch(googleAuth({ googleProfile, googleTokenId }));
+    history.push('/');
   };
 
   const handleGoogleFailure = async (err) => {

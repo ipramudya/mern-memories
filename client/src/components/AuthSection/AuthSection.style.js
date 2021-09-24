@@ -35,7 +35,7 @@ export const ImageSection = styled.div`
 export const Content = styled.div`
   position: absolute;
   top: 2em;
-  left: 1em;
+  left: 3em;
   max-width: 40%;
   z-index: 2;
 `;

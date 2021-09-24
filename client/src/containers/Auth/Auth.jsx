@@ -7,7 +7,6 @@ import {
   FormBox,
   FormField,
   H4,
-  Button,
 } from './LocalComponents/AuthForm/AuthForm.style';
 
 import SignIn from './LocalComponents/AuthForm/SignIn';
@@ -20,12 +19,6 @@ const Auth = () => {
   const handleRegister = () => {
     setisRegistered((prevState) => !prevState);
   };
-
-  const NavigateButton = ({ content }) => (
-    <Button styledPurpose="navigate" onClick={handleRegister} type="button">
-      {content}
-    </Button>
-  );
 
   return (
     <AuthSection>
