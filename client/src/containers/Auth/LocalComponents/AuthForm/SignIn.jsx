@@ -1,17 +1,24 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import { FaGoogle } from 'react-icons/fa';
 
+import { googleAuth } from '../../../../redux/actions/auth';
 import { BreakLine, Button, FlexField, Input, Text } from './AuthForm.style';
 
 const SignIn = ({ isShowPassword, handleRegister }) => {
   const [state, setstate] = useState('');
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
+  console.log(auth);
 
   const handleChange = (event) => {};
 
-  const handleGoogleSuccess = async (res) => {
+  const handleGoogleSuccess = (res) => {
     const googleProfile = res?.profileObj;
     const googleTokenId = res?.tokenId;
+    console.log(res);
+    dispatch(googleAuth({ googleProfile, googleTokenId }));
   };
 
   const handleGoogleFailure = async (err) => {
