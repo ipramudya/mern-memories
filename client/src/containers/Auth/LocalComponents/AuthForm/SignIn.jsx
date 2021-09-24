@@ -8,6 +8,16 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
   const [state, setstate] = useState('');
 
   const handleChange = (event) => {};
+
+  const handleGoogleSuccess = async (res) => {
+    const googleProfile = res?.profileObj;
+    const googleTokenId = res?.tokenId;
+  };
+
+  const handleGoogleFailure = async (err) => {
+    console.log(err);
+  };
+
   return (
     <>
       <Input
@@ -39,7 +49,10 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
         <span>or</span>
       </BreakLine>
       <GoogleLogin
-        clientId="GOOGLE ID"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
+        cookiePolicy="single_host_origin"
         render={(renderProps) => (
           <Button
             type="button"
