@@ -26,19 +26,30 @@ export const updatePost = async (req, res) => {
   const { body } = req;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).json({ message: 'No Post with that Id' });
+    return res.status(404).json({ message: 'Invalid Id' });
   }
   try {
     const updatedPost = { _id, ...body };
     await PostMessage.findByIdAndUpdate(_id, updatedPost, {
       new: true,
     });
-    res.status(200).json({ ...updatedPost });
+    res.status(202).json({ ...updatedPost });
+  } catch (error) {
+    res.status(304).json({ message: error.message });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ message: 'Invalid Id' });
+  }
+
+  try {
+    await PostMessage.findByIdAndDelete(_id);
+    res.status(202).json({ message: 'Post deleted successfully' });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
 };
-
-// export const deletePost = async (req, res) => {
-
-// }

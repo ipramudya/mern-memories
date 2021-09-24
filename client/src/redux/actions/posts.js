@@ -1,5 +1,5 @@
 import * as api from '../../api';
-import { FETCH_ALL, CREATE, UPDATE } from '../constants';
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants';
 
 // Action Creators
 export const getPosts = () => async (dispatch) => {
@@ -32,6 +32,18 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
     dispatch({
       type: UPDATE,
       payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+    dispatch({
+      type: DELETE,
+      payload: id,
     });
   } catch (error) {
     console.log(error);

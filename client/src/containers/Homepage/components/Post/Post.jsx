@@ -1,7 +1,9 @@
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 import { FiEdit } from 'react-icons/fi';
 import { FaHeart, FaTrash } from 'react-icons/fa';
 
+import { deletePost } from '../../../../redux/actions/posts';
 import { useCurrentIdAndFormContext } from '../../../../context/currentIdAndForm';
 import {
   Image,
@@ -17,10 +19,15 @@ import {
 
 const Post = ({ post }) => {
   const { setCurrentId, setIsFormActive } = useCurrentIdAndFormContext();
+  const dispatch = useDispatch();
 
-  const editPostHandler = () => {
+  const handleEditPost = () => {
     setCurrentId(post._id);
     setIsFormActive((prev) => !prev);
+  };
+
+  const handleDeletePost = () => {
+    dispatch(deletePost(post._id));
   };
 
   return (
@@ -28,10 +35,10 @@ const Post = ({ post }) => {
       <ImageWrapper>
         <Image src={post?.selectedFile} alt={post?.title} />
         <FlexField top>
-          <Button upper edit onClick={editPostHandler}>
+          <Button upper edit onClick={handleEditPost}>
             <FiEdit />
           </Button>
-          <Button upper remove>
+          <Button upper remove onClick={handleDeletePost}>
             <FaTrash />
           </Button>
         </FlexField>

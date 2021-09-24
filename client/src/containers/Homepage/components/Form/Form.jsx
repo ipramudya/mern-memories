@@ -49,7 +49,7 @@ const Form = () => {
     handleClear();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitPost = (event) => {
     event.preventDefault();
 
     if (currentId) {
@@ -70,7 +70,7 @@ const Form = () => {
         <Button arrow onClick={handleClose}>
           <MdArrowDropUp />
         </Button>
-        <FormField onSubmit={handleSubmit}>
+        <FormField onSubmit={handleSubmitPost}>
           <FlexField>
             <Input
               type="text"
