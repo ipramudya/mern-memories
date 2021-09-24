@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ListContainer = styled.div`
-  margin: 2em auto;
+  margin: 4em auto 2em auto;
   width: 80%;
 `;
 export const Grid = styled.div`

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { MdArrowDropUp } from 'react-icons/md';
-import { IoCheckmark, IoClose } from 'react-icons/io5';
+import { CgCloseR } from 'react-icons/cg';
 
 import { useCurrentIdAndFormContext } from '../../../../context/currentIdAndForm';
 import { createPost, updatePost } from '../../../../redux/actions/posts';
@@ -28,7 +27,7 @@ const initialPostState = {
 
 const Form = () => {
   const { posts } = useSelector((state) => state);
-  const { currentId, isFormActive, setCurrentId, setIsFormActive } =
+  const { currentId, setCurrentId, setIsFormActive } =
     useCurrentIdAndFormContext();
   const [postData, setPostData] = useState(initialPostState);
   const dispatch = useDispatch();
@@ -62,13 +61,13 @@ const Form = () => {
   };
 
   return (
-    <FormContainer active={isFormActive}>
+    <FormContainer>
       <FormBox>
         <H3>
           {currentId ? 'Update your memory' : 'Tell them your story and memory'}
         </H3>
-        <Button arrow onClick={handleClose}>
-          <MdArrowDropUp />
+        <Button onClick={handleClose} styledPurpose="close">
+          <CgCloseR />
         </Button>
         <FormField onSubmit={handleSubmitPost}>
           <FlexField>
@@ -103,7 +102,7 @@ const Form = () => {
                 tags: e.target.value,
               });
             }}
-            placeholder="Tags"
+            placeholder="Write tags separated with comma"
             required
           />
           <Textarea
@@ -116,14 +115,13 @@ const Form = () => {
             placeholder="Write your message..."
             required
           />
-          <FlexField buttons>
+          <FlexField styledFieldPurpose="fileBase">
             {postData?.selectedFile ? (
               <Span>File imported</Span>
             ) : (
               <Span>No file imported</Span>
             )}
             <FileBase
-              className="file"
               type="file"
               multiple={false}
               onDone={({ base64 }) => {
@@ -132,11 +130,20 @@ const Form = () => {
               accept="image/gif, image/jpeg, image/png"
               required
             />
-            <Button execution submit type="submit">
-              <IoCheckmark />
+            <Button
+              styledVariant="execution"
+              type="submit"
+              styledPurpose="submit"
+            >
+              {currentId ? 'Update' : 'Submit'}
             </Button>
-            <Button execution cancel onClick={handleClear}>
-              <IoClose />
+            <Button
+              styledVariant="execution"
+              cancel
+              onClick={handleClear}
+              styledPurpose="clear"
+            >
+              Clear
             </Button>
           </FlexField>
         </FormField>

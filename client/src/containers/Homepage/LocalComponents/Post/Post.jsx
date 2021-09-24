@@ -34,28 +34,40 @@ const Post = ({ post }) => {
     <PostContainer>
       <ImageWrapper>
         <Image src={post?.selectedFile} alt={post?.title} />
-        <FlexField top>
-          <Button upper edit onClick={handleEditPost}>
+        <FlexField styledFieldPossition="top">
+          <Button
+            onClick={handleEditPost}
+            styledPlace="upper"
+            styledPurpose="edit"
+          >
             <FiEdit />
           </Button>
-          <Button upper remove onClick={handleDeletePost}>
+          <Button
+            onClick={handleDeletePost}
+            styledPlace="upper"
+            styledPurpose="delete"
+          >
             <FaTrash />
           </Button>
         </FlexField>
       </ImageWrapper>
       <Content>
-        <Text tags>{post?.tags[0].split(',').map((val) => `#${val} `)}</Text>
-        <H4>{post?.title}</H4>
-        <Text message>
-          <Span>{post?.creator}</Span>
-          {post?.message}
-        </Text>
-        <FlexField bottom>
+        <FlexField styledFieldPossition="middle">
+          <Text styledVariant="tags">
+            {post?.tags[0].split(',').map((val) => `#${val} `)}
+          </Text>
+          <H4>{post?.title}</H4>
+          <Text>
+            <Span>{post?.creator}</Span>
+            {post?.message}
+          </Text>
+        </FlexField>
+        <FlexField styledFieldPossition="bottom">
           <Button>
             <FaHeart />
-            <Text bottom>Like {post?.likeCount}</Text>
+            <Text styledVariant="info">Like {post?.likeCount}</Text>
           </Button>
-          <Text bottom>{moment(post?.createdAt).fromNow()}</Text>
+          <Text styledVariant="info">{moment(post?.createdAt).fromNow()}</Text>
         </FlexField>
       </Content>
     </PostContainer>

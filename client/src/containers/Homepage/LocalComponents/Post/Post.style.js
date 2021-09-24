@@ -58,59 +58,61 @@ export const Button = styled.button`
     }
   }
 
-  ${({ upper }) =>
-    upper &&
-    css`
-      position: relative;
+  ${({ styledPlace }) => {
+    if (styledPlace === 'upper')
+      return css`
+        position: relative;
 
-      &::after {
-        position: absolute;
-        bottom: -0.5em;
-        left: 0;
-        right: 0;
-        color: #fff;
-        opacity: 0;
-        transition: all 0.3s;
-      }
-
-      > svg {
-        color: #fff;
-      }
-    `}
-
-  ${({ edit }) =>
-    edit &&
-    css`
-      &:hover {
         &::after {
-          opacity: 1;
+          position: absolute;
+          bottom: -0.5em;
+          left: 0;
+          right: 0;
+          color: #fff;
+          opacity: 0;
+          transition: all 0.3s;
         }
+
         > svg {
+          color: #fff;
+        }
+      `;
+  }}
+
+  ${({ styledPurpose }) => {
+    if (styledPurpose === 'edit') {
+      return css`
+        &:hover {
+          &::after {
+            opacity: 1;
+          }
+          > svg {
+            color: var(--success);
+          }
+        }
+        &::after {
+          content: 'edit';
           color: var(--success);
         }
-      }
-      &::after {
-        content: 'edit';
-        color: var(--success);
-      }
-    `}
-
-    ${({ remove }) =>
-    remove &&
-    css`
-      &:hover {
-        &::after {
-          opacity: 1;
+      `;
+    }
+    if (styledPurpose === 'delete') {
+      return css`
+        &:hover {
+          &::after {
+            opacity: 1;
+          }
+          > svg {
+            color: var(--danger);
+          }
         }
-        > svg {
+        &::after {
+          content: 'remove';
           color: var(--danger);
         }
-      }
-      &::after {
-        content: 'remove';
-        color: var(--danger);
-      }
-    `}
+      `;
+    }
+  }}
 `;
 
 export const Content = styled.div`
@@ -137,23 +139,18 @@ export const Text = styled.p`
   font-weight: 200;
   font-size: 0.9em;
 
-  ${({ message }) =>
-    message &&
-    css`
-      min-height: 5em;
-    `}
-
-  ${({ bottom }) =>
-    bottom &&
-    css`
-      margin-left: 0.5em;
-    `}
-
-    ${({ tags }) =>
-    tags &&
-    css`
-      font-style: italic;
-    `}
+  ${({ styledVariant }) => {
+    if (styledVariant === 'tags') {
+      return css`
+        font-style: italic;
+      `;
+    }
+    if (styledVariant === 'info') {
+      return css`
+        margin-left: 0.5em;
+      `;
+    }
+  }}
 `;
 
 export const Span = styled.span`
@@ -173,20 +170,27 @@ export const Span = styled.span`
 export const FlexField = styled.div`
   display: flex;
 
-  ${({ top }) =>
-    top &&
-    css`
-      position: absolute;
-      top: 0;
-      right: 0.5em;
-      z-index: 4;
-    `}
-
-  ${({ bottom }) =>
-    bottom &&
-    css`
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 0.5em;
-    `}
+  ${({ styledFieldPossition }) => {
+    if (styledFieldPossition === 'top') {
+      return css`
+        position: absolute;
+        top: 0;
+        right: 0.5em;
+        z-index: 4;
+      `;
+    }
+    if (styledFieldPossition === 'middle') {
+      return css`
+        flex-direction: column;
+        min-height: 10em;
+      `;
+    }
+    if (styledFieldPossition === 'bottom') {
+      return css`
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0.5em;
+      `;
+    }
+  }}
 `;

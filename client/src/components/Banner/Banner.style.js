@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const BannerContainer = styled.div`
-  margin: 2em auto;
   width: 80%;
   position: relative;
   padding-bottom: 20em;

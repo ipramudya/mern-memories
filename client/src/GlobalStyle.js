@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
         --success: #3DB2FF;
         --warning: #FFB319;
         --accept: #57CC99;
-        --light: #F7F6F2;
+        --light: #ECECEC;
         --dark: #112031;
         --brown: #3d282f
     }
@@ -51,4 +51,48 @@ export const GlobalStyle = createGlobalStyle`
             list-style: none;
         }
     }
+    .zoomIn {
+        -webkit-animation-name: zoomIn;
+        animation-name: zoomIn;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    @-webkit-keyframes zoomIn {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale3d(.3, .3, .3);
+            transform: scale3d(.3, .3, .3);
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+    @keyframes zoomIn {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale3d(.3, .3, .3);
+            transform: scale3d(.3, .3, .3);
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+    .fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    } 
 `;

@@ -2,14 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getPosts } from '../../redux/actions/posts';
-import { Banner, List } from '../../components';
+import { Avatar, Banner, List, TopBar } from '../../components';
 
 import { useCurrentIdAndFormContext } from '../../context/currentIdAndForm';
-import Form from './components/Form/Form';
-import Post from './components/Post/Post';
+import Form from './LocalComponents/Form/Form';
+import Post from './LocalComponents/Post/Post';
 
 const Homepage = () => {
-  const { setIsFormActive, currentId } = useCurrentIdAndFormContext();
+  const { setIsFormActive, isFormActive, currentId } =
+    useCurrentIdAndFormContext();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state);
 
@@ -19,8 +20,11 @@ const Homepage = () => {
 
   return (
     <>
-      <Banner setActiveForm={setIsFormActive} />
-      <Form />
+      <TopBar>
+        <Banner setActiveForm={setIsFormActive} />
+        <Avatar />
+      </TopBar>
+      {isFormActive && <Form />}
       <List>
         {posts.map((post) => (
           <Post post={post} key={post._id} />
