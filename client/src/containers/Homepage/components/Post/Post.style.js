@@ -23,8 +23,8 @@ export const ImageWrapper = styled.div`
     z-index: 3;
     background-image: linear-gradient(
       180deg,
-      rgb(0, 0, 0) 0px,
-      rgba(0, 0, 0, 0.1) 50%,
+      rgb(45, 36, 36) 0px,
+      rgba(0, 0, 0, 0.1) 30%,
       rgba(0, 0, 0, 0.1)
     );
   }

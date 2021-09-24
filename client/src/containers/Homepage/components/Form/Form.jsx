@@ -18,17 +18,19 @@ import {
   Span,
 } from './Form.style';
 
+const initialPostState = {
+  creator: '',
+  title: '',
+  tags: '',
+  message: '',
+  selectedFile: '',
+};
+
 const Form = () => {
   const { posts } = useSelector((state) => state);
   const { currentId, isFormActive, setCurrentId, setIsFormActive } =
     useCurrentIdAndFormContext();
-  const [postData, setPostData] = useState({
-    creator: '',
-    title: '',
-    tags: '',
-    message: '',
-    selectedFile: '',
-  });
+  const [postData, setPostData] = useState(initialPostState);
   const dispatch = useDispatch();
 
   const exactPost = posts.find((post) => post._id === currentId);
@@ -39,13 +41,7 @@ const Form = () => {
 
   const handleClear = () => {
     setCurrentId(null);
-    setPostData({
-      creator: '',
-      title: '',
-      tags: '',
-      message: '',
-      selectedFile: '',
-    });
+    setPostData(initialPostState);
   };
 
   const handleClose = () => {
