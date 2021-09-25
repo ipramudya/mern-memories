@@ -4,7 +4,7 @@ export const FormContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   min-height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

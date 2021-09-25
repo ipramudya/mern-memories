@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const BannerContainer = styled.div`
-  width: 80%;
+  width: ${({ wide }) => (wide ? '80%' : '100%')};
   position: relative;
   padding-bottom: 20em;
 `;
@@ -55,10 +56,27 @@ export const Button = styled.button`
   max-width: fit-content;
   padding: 0 0.5em;
   border-radius: 5px;
-  font-weight: 500;
   transition: all 0.3s;
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  color: var(--brown);
+  border-radius: 5px;
+  padding: 0 2em;
+  min-height: 44px;
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+  transition: all 0.3s;
+  background-color: #fff;
+
+  &:hover {
+    background-color: var(--accept);
+    color: #fff;
   }
 `;

@@ -14,10 +14,11 @@ API.interceptors.request.use((req) => {
 
 /* posts endpoints */
 export const fetchPosts = () => API.get('/posts');
-export const creatPost = (newPost) => API.post('/posts', newPost);
+export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) =>
   API.patch(`${'/posts'}/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`${'/posts'}/${id}`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
 /* user endpoints */
 export const signIn = (authForm) => API.post(`/user/signin`, authForm);

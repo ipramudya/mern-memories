@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const AvatarContainer = styled.div`
   width: 20%;
@@ -53,8 +52,7 @@ export const Content = styled.div`
 
 export const H6 = styled.h6`
   color: var(--brown);
-  padding: 0 0.5em;
-  text-align: center;
+  padding: 0 1em;
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.7px;
@@ -77,22 +75,6 @@ export const Text = styled.p`
   color: var(--brown);
   font-weight: 200;
   font-size: 0.9em;
-`;
-
-export const StyledLink = styled(Link)`
-  color: #fff;
-  border-radius: 5px;
-  padding: 0 1em;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  font-size: 0.8em;
-  transition: all 0.3s;
-  background-color: var(--accept);
-
-  &:hover {
-    filter: brightness(80%);
-  }
 `;
 
 export const Button = styled.button`

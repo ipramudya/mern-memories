@@ -54,7 +54,8 @@ export const Button = styled.button`
 
   &:hover {
     > svg {
-      color: var(--danger);
+      color: ${({ styledDisabled }) =>
+        styledDisabled ? 'gray' : 'var(--danger)'};
     }
   }
 

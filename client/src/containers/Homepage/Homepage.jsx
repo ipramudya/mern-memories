@@ -14,16 +14,20 @@ const Homepage = () => {
     useCurrentIdAndFormContext();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state);
+  const isUserAvailable = !!JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId, dispatch]);
+  }, [currentId, dispatch, posts]);
 
   return (
     <>
       <TopBar>
-        <Banner setActiveForm={setIsFormActive} />
-        <Avatar />
+        <Banner
+          setActiveForm={setIsFormActive}
+          isUserAvailable={isUserAvailable}
+        />
+        {isUserAvailable && <Avatar />}
       </TopBar>
       {isFormActive && <Form />}
       <List>

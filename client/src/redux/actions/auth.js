@@ -7,7 +7,10 @@ export const googleAuth =
     try {
       dispatch({
         type: AUTH,
-        payload: { googleProfile, googleTokenId },
+        payload: {
+          result: googleProfile,
+          token: googleTokenId,
+        },
       });
     } catch (error) {
       console.log(error);

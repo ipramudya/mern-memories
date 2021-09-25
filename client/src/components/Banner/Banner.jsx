@@ -6,17 +6,18 @@ import {
   H6,
   ImageContainer,
   Button,
+  StyledLink,
 } from './Banner.style';
 
 import MemoriesImage from '../../assets/banner.jpg';
 
-const Banner = ({ setActiveForm }) => {
+const Banner = ({ setActiveForm, isUserAvailable }) => {
   const clickHandler = () => {
     setActiveForm((prev) => !prev);
   };
 
   return (
-    <BannerContainer>
+    <BannerContainer wide={isUserAvailable}>
       <Content>
         <H1>Memories App</H1>
         <H6>
@@ -24,7 +25,11 @@ const Banner = ({ setActiveForm }) => {
           <br />
           so you can gain more relation to each other
         </H6>
-        <Button onClick={clickHandler}>Write Memories</Button>
+        {isUserAvailable ? (
+          <Button onClick={clickHandler}>Write Memories</Button>
+        ) : (
+          <StyledLink to="/auth">Sign In</StyledLink>
+        )}
       </Content>
       <ImageContainer>
         <BannerImage src={MemoriesImage} alt="Banner Rose and Camera" />

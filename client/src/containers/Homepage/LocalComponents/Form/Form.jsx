@@ -18,7 +18,6 @@ import {
 } from './Form.style';
 
 const initialPostState = {
-  creator: '',
   title: '',
   tags: '',
   message: '',
@@ -31,6 +30,7 @@ const Form = () => {
     useCurrentIdAndFormContext();
   const [postData, setPostData] = useState(initialPostState);
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const exactPost = posts.find((post) => post._id === currentId);
 
@@ -52,9 +52,11 @@ const Form = () => {
     event.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     }
 
     handleClose();
@@ -70,28 +72,16 @@ const Form = () => {
           <CgCloseR />
         </Button>
         <FormField onSubmit={handleSubmitPost}>
-          <FlexField>
-            <Input
-              type="text"
-              name="title"
-              value={postData?.title}
-              onChange={(e) => {
-                setPostData({ ...postData, title: e.target.value });
-              }}
-              placeholder="Title"
-              required
-            />
-            <Input
-              type="text"
-              name="creator"
-              value={postData?.creator}
-              onChange={(e) => {
-                setPostData({ ...postData, creator: e.target.value });
-              }}
-              placeholder="Creator"
-              required
-            />
-          </FlexField>
+          <Input
+            type="text"
+            name="title"
+            value={postData?.title}
+            onChange={(e) => {
+              setPostData({ ...postData, title: e.target.value });
+            }}
+            placeholder="Title"
+            required
+          />
           <Input
             type="text"
             name="tags"
