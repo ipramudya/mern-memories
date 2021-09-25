@@ -53,3 +53,32 @@ export const deletePost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const likePost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  /* generated from auth middleware */
+  const { userId } = req;
+  if (!userId) return res.status(403).json({ message: 'Unauthenticated' });
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ message: 'Invalid Id' });
+  }
+
+  const post = await PostMessage.findById(_id);
+
+  /* implements like once */
+  const index = post.likes.findIndex((id) => id === String(userId));
+  if (index === -1) {
+    /* if found index's different from userId, user can perform LIKE */
+    post.likes.push(req.userId);
+  } else {
+    /* if found index's same, user can only DISLIKE the post */
+    post.likes = post.likes.filter((id) => id !== String(userId)); // filter for only different user
+  }
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
+    new: true,
+  });
+  res.status(202).json({ updatedPost });
+};

@@ -1,26 +1,31 @@
-import { useState } from 'react';
 import { Button, FlexField, Input, Text } from './AuthForm.style';
 
-const Register = ({ isShowPassword, handleRegister }) => {
-  const [state, setstate] = useState('');
-
-  const handleChange = (event) => {};
-
+const Register = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
   return (
     <>
-      <Input
-        type="text"
-        name="firstname"
-        onChange={handleChange}
-        value={state}
-        placeholder="First Name"
-        required
-      />
+      <FlexField styledPurpose="name">
+        <Input
+          type="text"
+          name="firstName"
+          onChange={handleChange}
+          value={state.firstName}
+          placeholder="First Name"
+          required
+        />
+        <Input
+          type="text"
+          name="lastName"
+          onChange={handleChange}
+          value={state.lastName}
+          placeholder="Last Name"
+          required
+        />
+      </FlexField>
       <Input
         type="text"
         name="email"
         onChange={handleChange}
-        value={state}
+        value={state.email}
         placeholder="Email"
         required
       />
@@ -28,15 +33,15 @@ const Register = ({ isShowPassword, handleRegister }) => {
         type={isShowPassword ? 'text' : 'password'}
         name="password"
         onChange={handleChange}
-        value={state}
+        value={state.password}
         placeholder="Password"
         required
       />
       <Input
         type={isShowPassword ? 'text' : 'password'}
-        name="confirmPass"
+        name="confirmPassword"
         onChange={handleChange}
-        value={state}
+        value={state.confirmPassword}
         placeholder="Confirm Password"
         required
       />
@@ -45,7 +50,7 @@ const Register = ({ isShowPassword, handleRegister }) => {
           Register
         </Button>
         <Text>Have an account ?</Text>
-        <Button styledPurpose="navigate" onClick={handleRegister} type="button">
+        <Button styledPurpose="navigate" onClick={handleSwitcher} type="button">
           Sign in now
         </Button>
       </FlexField>

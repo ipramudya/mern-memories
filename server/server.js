@@ -5,7 +5,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 /* Own Depedency */
-import routes from './route/posts.js';
+import postsRoute from './route/posts.js';
+import userRoute from './route/user.js';
 
 /* Initializing Variables of App */
 dotenv.config();
@@ -17,7 +18,8 @@ const PORT = 5000 || process.env.PORT;
 app.use(express.json({ limit: '30mb' })); // Parse JSON body
 app.use(express.urlencoded({ limit: '30mb', extended: true })); // Parse URL-encoded bodie
 app.use(cors()); // Disabling CORS policy
-app.use('/posts', routes);
+app.use('/posts', postsRoute);
+app.use('/user', userRoute);
 
 /* Connect to MongoDB */
 mongoose

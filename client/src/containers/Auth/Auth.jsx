@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 
+import { register, signIn } from '../../redux/actions/auth';
 import { AuthSection } from '../../components';
 
 import {
@@ -12,29 +15,61 @@ import {
 import SignIn from './LocalComponents/AuthForm/SignIn';
 import Register from './LocalComponents/AuthForm/Register';
 
-const Auth = () => {
-  const [isRegistered, setisRegistered] = useState(true);
-  const [isShowPassword, setIsShowPassword] = useState(false);
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
 
-  const handleRegister = () => {
-    setisRegistered((prevState) => !prevState);
+const Auth = () => {
+  const [authForm, setAuthForm] = useState(initialState);
+  const [isRegistered, setIsRegistered] = useState(true);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSwitcher = () => {
+    setIsRegistered((prevState) => !prevState);
+    setAuthForm(initialState);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (isRegistered) {
+      // sign in
+      dispatch(signIn(authForm, history));
+    } else {
+      // sign up
+      dispatch(register(authForm, history));
+    }
+  };
+
+  const handleChange = (event) => {
+    setAuthForm({ ...authForm, [event.target.name]: event.target.value });
   };
 
   return (
     <AuthSection>
       <AuthFormContainer>
-        <FormBox>
+        <FormBox onSubmit={handleSubmit}>
           <H4>{isRegistered ? 'Sign In' : 'Register'}</H4>
           <FormField>
             {isRegistered ? (
               <SignIn
                 isShowPassword={isShowPassword}
-                handleRegister={handleRegister}
+                handleSwitcher={handleSwitcher}
+                handleChange={handleChange}
+                state={authForm}
               />
             ) : (
               <Register
                 isShowPassword={isShowPassword}
-                handleRegister={handleRegister}
+                handleSwitcher={handleSwitcher}
+                handleChange={handleChange}
+                state={authForm}
               />
             )}
           </FormField>

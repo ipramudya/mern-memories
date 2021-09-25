@@ -21,6 +21,14 @@
       {
         "js": "always"
       }
-    ]
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["_d", "_dh", "_h", "_id", "_m", "_n", "_t", "_text", "_doc"]
+      }
+    ],
+    "object-curly-newline": "off",
+    "operator-linebreak": "off"
   }
 }

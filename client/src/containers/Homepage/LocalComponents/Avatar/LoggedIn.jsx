@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import ReactAvatar from 'react-avatar';
 
 import { googleLogout } from '../../../../redux/actions/auth';
 import {
@@ -12,6 +13,12 @@ import {
   Button,
 } from './Avatar.style';
 
+const reactAvatarStyle = {
+  position: 'absolute',
+  top: 0,
+  border: '3px solid #fff',
+};
+
 const LoggedIn = ({ profile, setProfile }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,14 +26,25 @@ const LoggedIn = ({ profile, setProfile }) => {
   const handleLogout = () => {
     dispatch(googleLogout());
     history.push('/');
-    setProfile({});
+    setProfile(null);
   };
 
   return (
     <>
       <ImageBorder />
       <ImageWrapper>
-        <Image src={profile?.imageUrl} alt={profile?.name} />
+        {profile?.imageUrl ? (
+          <Image src={profile?.imageUrl} alt={profile?.name} />
+        ) : (
+          <ReactAvatar
+            name={profile?.name}
+            title={profile?.name}
+            size="100%"
+            round={true}
+            style={reactAvatarStyle}
+            textMarginRatio={0.1}
+          />
+        )}
       </ImageWrapper>
       <Content>
         <H6 styledVariant="profile">{profile?.name}</H6>

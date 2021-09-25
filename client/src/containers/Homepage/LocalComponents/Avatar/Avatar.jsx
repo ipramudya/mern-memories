@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import { AvatarContainer, StyledLink, H6 } from './Avatar.style';
 import LoggedIn from './LoggedIn';
@@ -7,10 +8,11 @@ const Avatar = () => {
   const [localData, setLocalData] = useState(
     JSON.parse(localStorage.getItem('profile'))
   );
+  const history = useHistory();
 
   useEffect(() => {
     setLocalData(JSON.parse(localStorage.getItem('profile')));
-  }, [localData]);
+  }, [history]);
 
   return (
     <AvatarContainer>
@@ -22,7 +24,12 @@ const Avatar = () => {
           </StyledLink>
         </>
       ) : (
-        <LoggedIn profile={localData.googleProfile} setProfile={setLocalData} />
+        <LoggedIn
+          profile={
+            localData.googleProfile ? localData.googleProfile : localData.result
+          }
+          setProfile={setLocalData}
+        />
       )}
     </AvatarContainer>
   );

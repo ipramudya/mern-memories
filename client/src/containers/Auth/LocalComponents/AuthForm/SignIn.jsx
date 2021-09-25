@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
@@ -7,17 +6,14 @@ import { FaGoogle } from 'react-icons/fa';
 import { googleAuth } from '../../../../redux/actions/auth';
 import { BreakLine, Button, FlexField, Input, Text } from './AuthForm.style';
 
-const SignIn = ({ isShowPassword, handleRegister }) => {
-  const [state, setstate] = useState('');
+const SignIn = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const handleChange = (event) => {};
 
   const handleGoogleSuccess = (res) => {
     const googleProfile = res?.profileObj;
     const googleTokenId = res?.tokenId;
-    console.log(res);
+
     dispatch(googleAuth({ googleProfile, googleTokenId }));
     history.push('/');
   };
@@ -32,7 +28,7 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
         type="text"
         name="email"
         onChange={handleChange}
-        value={state}
+        value={state.email}
         placeholder="Email"
         required
       />
@@ -40,7 +36,7 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
         type={isShowPassword ? 'text' : 'password'}
         name="password"
         onChange={handleChange}
-        value={state}
+        value={state.password}
         placeholder="Password"
         required
       />
@@ -49,7 +45,7 @@ const SignIn = ({ isShowPassword, handleRegister }) => {
           Sign In
         </Button>
         <Text>Dont have account ?</Text>
-        <Button styledPurpose="navigate" onClick={handleRegister} type="button">
+        <Button styledPurpose="navigate" onClick={handleSwitcher} type="button">
           Register
         </Button>
       </FlexField>

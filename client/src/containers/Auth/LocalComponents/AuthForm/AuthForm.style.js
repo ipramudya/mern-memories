@@ -26,6 +26,18 @@ export const FlexField = styled.div`
   display: flex;
   align-items: center;
   margin-top: 2em;
+
+  ${({ styledPurpose }) => {
+    if (styledPurpose === 'name') {
+      return css`
+        margin: unset;
+
+        > input[name='lastName'] {
+          margin-left: 0.5em;
+        }
+      `;
+    }
+  }}
 `;
 
 export const Button = styled.button`
