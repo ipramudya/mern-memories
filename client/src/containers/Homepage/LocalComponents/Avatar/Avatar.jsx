@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { AvatarContainer, StyledLink, H6 } from './Avatar.style';
 import LoggedIn from './LoggedIn';
@@ -9,21 +8,21 @@ const Avatar = () => {
     JSON.parse(localStorage.getItem('profile'))
   );
 
-  console.log(localData);
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setLocalData(JSON.parse(localStorage.getItem('profile')));
+  }, [localData]);
 
   return (
     <AvatarContainer>
       {!localData ? (
         <>
-          <H6 styledVariant="signIn">Please Sign In before writing memories</H6>
-          <StyledLink to="/auth" styledVariant="signIn">
+          <H6 styledvariant="signIn">Please Sign In before writing memories</H6>
+          <StyledLink to="/auth" styledvariant="signIn">
             Sign In
           </StyledLink>
         </>
       ) : (
-        <LoggedIn profile={localData.googleProfile} />
+        <LoggedIn profile={localData.googleProfile} setProfile={setLocalData} />
       )}
     </AvatarContainer>
   );

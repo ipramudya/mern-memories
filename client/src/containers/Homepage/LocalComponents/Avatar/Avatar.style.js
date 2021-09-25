@@ -59,13 +59,13 @@ export const H6 = styled.h6`
   font-weight: 400;
   letter-spacing: 0.7px;
 
-  ${({ styledVariant }) => {
-    if (styledVariant === 'signIn') {
+  ${({ styledvariant }) => {
+    if (styledvariant === 'signIn') {
       return css`
         margin-bottom: 1em;
       `;
     }
-    if (styledVariant === 'profile') {
+    if (styledvariant === 'profile') {
       return css`
         margin-bottom: 0.5em;
       `;
@@ -80,7 +80,6 @@ export const Text = styled.p`
 `;
 
 export const StyledLink = styled(Link)`
-  background-color: var(--accept);
   color: #fff;
   border-radius: 5px;
   padding: 0 1em;
@@ -89,22 +88,22 @@ export const StyledLink = styled(Link)`
   align-items: center;
   font-size: 0.8em;
   transition: all 0.3s;
+  background-color: var(--accept);
 
   &:hover {
     filter: brightness(80%);
   }
+`;
 
-  ${({ styledVariant }) => {
-    if (styledVariant === 'signIn') {
-      return css`
-        background-color: var(--accept);
-      `;
-    }
-    if (styledVariant === 'signOut') {
-      return css`
-        background-color: var(--danger);
-        margin-top: 2em;
-      `;
-    }
-  }}
+export const Button = styled.button`
+  color: #fff;
+  border-radius: 5px;
+  padding: 0 1em;
+  background-color: var(--danger);
+  margin-top: 2em;
+  transition: all 0.3s;
+
+  &:hover {
+    filter: brightness(80%);
+  }
 `;

@@ -1,4 +1,4 @@
-import { AUTH } from '../constants';
+import { AUTH, LOGOUT } from '../constants';
 
 export const googleAuth =
   ({ googleProfile, googleTokenId }) =>
@@ -12,3 +12,13 @@ export const googleAuth =
       console.log(error);
     }
   };
+
+export const googleLogout = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: LOGOUT,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
