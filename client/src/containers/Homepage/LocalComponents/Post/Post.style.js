@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { FaHeart } from 'react-icons/fa';
 
 export const PostContainer = styled.div`
   display: flex;
@@ -47,16 +48,12 @@ export const Button = styled.button`
   min-height: 44px;
 
   > svg {
-    color: var(--brown);
     font-size: 1.3em;
-    transition: all 0.3s;
   }
 
-  &:hover {
-    > svg {
-      color: ${({ styledDisabled }) =>
-        styledDisabled ? 'gray' : 'var(--danger)'};
-    }
+  &:hover > * {
+    color: ${({ styledDisabled }) =>
+      styledDisabled ? 'gray' : 'var(--danger)'};
   }
 
   ${({ styledPlace }) => {
@@ -151,7 +148,7 @@ export const Text = styled.p`
         margin-left: 0.5em;
       `;
     }
-  }}
+  }};
 `;
 
 export const Span = styled.span`
@@ -191,6 +188,19 @@ export const FlexField = styled.div`
         align-items: center;
         justify-content: space-between;
         padding: 0 0.5em;
+      `;
+    }
+  }}
+`;
+
+export const StyledHeart = styled(FaHeart)`
+  color: var(--brown);
+  transition: all 0.3s;
+
+  ${({ styledFull }) => {
+    if (styledFull === 'full') {
+      return css`
+        color: var(--danger);
       `;
     }
   }}

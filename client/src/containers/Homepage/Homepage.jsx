@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getPosts } from '../../redux/actions/posts';
 import { Banner, List, TopBar } from '../../components';
@@ -13,12 +13,12 @@ const Homepage = () => {
   const { setIsFormActive, isFormActive, currentId } =
     useCurrentIdAndFormContext();
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state);
+  const { posts } = useSelector((state) => state, shallowEqual);
   const isUserAvailable = !!JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId, dispatch, posts]);
+  }, [dispatch, currentId]);
 
   return (
     <>
@@ -31,7 +31,7 @@ const Homepage = () => {
       </TopBar>
       {isFormActive && <Form />}
       <List>
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </List>

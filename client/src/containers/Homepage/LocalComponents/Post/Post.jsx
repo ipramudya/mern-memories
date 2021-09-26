@@ -1,8 +1,7 @@
 import moment from 'moment';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { FiEdit } from 'react-icons/fi';
-import { FaHeart, FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 
 import { deletePost, likePost } from '../../../../redux/actions/posts';
 import { useCurrentIdAndFormContext } from '../../../../context/currentIdAndForm';
@@ -16,6 +15,7 @@ import {
   H4,
   Text,
   Span,
+  StyledHeart,
 } from './Post.style';
 
 const Post = ({ post }) => {
@@ -42,7 +42,7 @@ const Post = ({ post }) => {
         (like) => like === (user?.result?.googleId || user?.result?._id)
       ) ? (
         <>
-          <FaHeart />
+          <StyledHeart styledFull="full" />
           <Text styledVariant="info">
             {post.likes.length > 2
               ? `You and ${post.likes.length - 1} others`
@@ -51,7 +51,7 @@ const Post = ({ post }) => {
         </>
       ) : (
         <>
-          <FaHeart />
+          <StyledHeart />
           <Text styledVariant="info">
             {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
           </Text>
@@ -61,7 +61,7 @@ const Post = ({ post }) => {
 
     return (
       <>
-        <FaHeart />
+        <StyledHeart />
         <Text styledVariant="info">Like</Text>
       </>
     );
@@ -93,7 +93,7 @@ const Post = ({ post }) => {
       <Content>
         <FlexField styledFieldPossition="middle">
           <Text styledVariant="tags">
-            {post?.tags[0].split(',').map((val) => `#${val} `)}
+            {post?.tags.map((tag) => ` #${tag}`)}
           </Text>
           <H4>{post?.title}</H4>
           <Text>
