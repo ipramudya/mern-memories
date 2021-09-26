@@ -17,7 +17,7 @@ export const googleAuth =
     }
   };
 
-export const googleLogout = () => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   try {
     dispatch({
       type: LOGOUT,
