@@ -42,7 +42,7 @@ const Auth = () => {
       // sign in
       dispatch(signIn(authForm, history));
     } else {
-      // sign up
+      // register
       dispatch(register(authForm, history));
     }
   };
@@ -62,14 +62,15 @@ const Auth = () => {
                 isShowPassword={isShowPassword}
                 handleSwitcher={handleSwitcher}
                 handleChange={handleChange}
-                state={authForm}
+                authFormState={authForm}
               />
             ) : (
               <Register
                 isShowPassword={isShowPassword}
+                setShowPass={setIsShowPassword}
                 handleSwitcher={handleSwitcher}
                 handleChange={handleChange}
-                state={authForm}
+                authFormState={authForm}
               />
             )}
           </FormField>

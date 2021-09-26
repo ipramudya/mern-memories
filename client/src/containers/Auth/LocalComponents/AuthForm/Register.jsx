@@ -1,6 +1,23 @@
-import { Button, FlexField, Input, Text } from './AuthForm.style';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import {
+  Button,
+  FlexField,
+  Input,
+  RelativeField,
+  Text,
+} from './AuthForm.style';
 
-const Register = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
+const Register = ({
+  isShowPassword,
+  handleSwitcher,
+  handleChange,
+  setShowPass,
+  authFormState,
+}) => {
+  const handleShowPassword = () => {
+    setShowPass((prevState) => !prevState);
+  };
+
   return (
     <>
       <FlexField styledPurpose="name">
@@ -8,7 +25,7 @@ const Register = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
           type="text"
           name="firstName"
           onChange={handleChange}
-          value={state.firstName}
+          value={authFormState.firstName}
           placeholder="First Name"
           required
         />
@@ -16,7 +33,7 @@ const Register = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
           type="text"
           name="lastName"
           onChange={handleChange}
-          value={state.lastName}
+          value={authFormState.lastName}
           placeholder="Last Name"
           required
         />
@@ -25,23 +42,32 @@ const Register = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
         type="text"
         name="email"
         onChange={handleChange}
-        value={state.email}
+        value={authFormState.email}
         placeholder="Email"
         required
       />
-      <Input
-        type={isShowPassword ? 'text' : 'password'}
-        name="password"
-        onChange={handleChange}
-        value={state.password}
-        placeholder="Password"
-        required
-      />
+      <RelativeField>
+        <Input
+          type={isShowPassword ? 'text' : 'password'}
+          name="password"
+          onChange={handleChange}
+          value={authFormState.password}
+          placeholder="Password"
+          required
+        />
+        <Button
+          styledPurpose="small"
+          onClick={handleShowPassword}
+          type="button"
+        >
+          {isShowPassword ? <FiEye /> : <FiEyeOff />}
+        </Button>
+      </RelativeField>
       <Input
         type={isShowPassword ? 'text' : 'password'}
         name="confirmPassword"
         onChange={handleChange}
-        value={state.confirmPassword}
+        value={authFormState.confirmPassword}
         placeholder="Confirm Password"
         required
       />

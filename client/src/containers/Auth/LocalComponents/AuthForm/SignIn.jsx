@@ -6,7 +6,12 @@ import { FaGoogle } from 'react-icons/fa';
 import { googleAuth } from '../../../../redux/actions/auth';
 import { BreakLine, Button, FlexField, Input, Text } from './AuthForm.style';
 
-const SignIn = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
+const SignIn = ({
+  isShowPassword,
+  handleSwitcher,
+  handleChange,
+  authFormState,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,7 +33,7 @@ const SignIn = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
         type="text"
         name="email"
         onChange={handleChange}
-        value={state.email}
+        value={authFormState.email}
         placeholder="Email"
         required
       />
@@ -36,7 +41,7 @@ const SignIn = ({ isShowPassword, handleSwitcher, handleChange, state }) => {
         type={isShowPassword ? 'text' : 'password'}
         name="password"
         onChange={handleChange}
-        value={state.password}
+        value={authFormState.password}
         placeholder="Password"
         required
       />

@@ -40,6 +40,15 @@ export const FlexField = styled.div`
   }}
 `;
 
+export const RelativeField = styled.div`
+  position: relative;
+  margin-top: 1em;
+
+  > input {
+    margin: unset;
+  }
+`;
+
 export const Button = styled.button`
   transition: all 0.3s;
 
@@ -78,6 +87,14 @@ export const Button = styled.button`
           margin-right: 1em;
           font-size: 1.5em;
         }
+      `;
+    }
+    if (styledPurpose === 'small') {
+      return css`
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
       `;
     }
   }}
