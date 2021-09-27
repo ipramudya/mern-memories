@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ClipLoader } from 'react-spinners';
+import { PropagateLoader } from 'react-spinners';
 
 const Spinner = ({ loading }) => {
   const spinnerStyle = css`
@@ -16,12 +16,13 @@ const Spinner = ({ loading }) => {
     position: fixed;
     min-width: 100%;
     min-height: 100vh;
+    top: 0;
     z-index: 990;
     background-color: rgba(2, 1, 1, 0.5);
   `;
   return (
     <>
-      <ClipLoader color="#FFF" loading={loading} css={spinnerStyle} />
+      <PropagateLoader color="#FFF" loading={loading} css={spinnerStyle} />
       <OverlayBackground />
     </>
   );

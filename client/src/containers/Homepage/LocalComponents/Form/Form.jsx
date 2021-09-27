@@ -32,7 +32,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  const exactPost = posts.find((post) => post._id === currentId);
+  const exactPost = posts.data.find((post) => post._id === currentId);
 
   useEffect(() => {
     setPostData(exactPost);

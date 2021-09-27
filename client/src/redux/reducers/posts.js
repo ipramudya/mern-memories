@@ -1,23 +1,57 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants';
+import {
+  FETCH_ALL,
+  CREATE,
+  UPDATE,
+  DELETE,
+  LIKE,
+  POST_LOADING,
+  POST_ERROR,
+} from '../constants';
 
-export default function posts(posts = [], action) {
+const initialState = {
+  data: [],
+  loading: false,
+  error: null,
+};
+
+export default function posts(posts = initialState, action) {
   switch (action.type) {
+    case POST_LOADING:
+      return { ...posts, loading: true };
+    case POST_ERROR:
+      return { ...posts, loading: false, error: action.payload };
     case FETCH_ALL:
-      return [...action.payload];
+      return { ...posts, data: [...action.payload], loading: false };
     case CREATE:
-      return [...posts, action.payload];
+      return {
+        ...posts,
+        data: [...posts.data, action.payload],
+        loading: false,
+      };
     case UPDATE:
-      return posts.map((post) => {
-        return post._id === action.payload._id ? action.payload : post;
-      });
+      return {
+        ...posts,
+        data: posts.data.map((post) => {
+          return post._id === action.payload._id ? action.payload : post;
+        }),
+        loading: false,
+      };
     case DELETE:
-      return posts.filter((post) => {
-        return post._id !== action.payload;
-      });
+      return {
+        ...posts,
+        data: posts.data.filter((post) => {
+          return post._id !== action.payload;
+        }),
+        loading: false,
+      };
     case LIKE:
-      return posts.map((post) => {
-        return post._id === action.payload._id ? action.payload : post;
-      });
+      return {
+        ...posts,
+        data: posts.data.map((post) => {
+          return post._id === action.payload._id ? action.payload : post;
+        }),
+        loading: false,
+      };
     default:
       return posts;
   }

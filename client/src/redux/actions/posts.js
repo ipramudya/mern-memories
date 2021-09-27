@@ -1,8 +1,18 @@
 import * as api from '../../api';
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants';
+import {
+  FETCH_ALL,
+  CREATE,
+  UPDATE,
+  DELETE,
+  LIKE,
+  POST_LOADING,
+  POST_ERROR,
+} from '../constants';
 
 // Action Creators
 export const getPosts = () => async (dispatch) => {
+  dispatch({ type: POST_LOADING });
+
   try {
     const { data } = await api.fetchPosts();
     dispatch({
@@ -10,11 +20,17 @@ export const getPosts = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
 
 export const createPost = (post) => async (dispatch) => {
+  dispatch({ type: POST_LOADING });
   try {
     const { data } = await api.createPost(post);
     dispatch({
@@ -22,11 +38,17 @@ export const createPost = (post) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
 
 export const updatePost = (id, updatedPost) => async (dispatch) => {
+  dispatch({ type: POST_LOADING });
   try {
     const { data } = await api.updatePost(id, updatedPost);
     dispatch({
@@ -34,11 +56,17 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
 
 export const deletePost = (id) => async (dispatch) => {
+  dispatch({ type: POST_LOADING });
   try {
     await api.deletePost(id);
     dispatch({
@@ -46,11 +74,17 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
 
 export const likePost = (id) => async (dispatch) => {
+  dispatch({ type: POST_LOADING });
   try {
     const { data } = await api.likePost(id);
     dispatch({
@@ -58,6 +92,11 @@ export const likePost = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
