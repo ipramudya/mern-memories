@@ -16,7 +16,7 @@ const reactAvatarStyle = {
   border: '3px solid #fff',
 };
 
-const LoggedIn = ({ profile, handleLogout }) => {
+const Avatar = ({ profile, handleLogout }) => {
   return (
     <>
       <ImageBorder />
@@ -44,4 +44,4 @@ const LoggedIn = ({ profile, handleLogout }) => {
   );
 };
 
-export default LoggedIn;
+export default Avatar;

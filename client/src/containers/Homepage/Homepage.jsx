@@ -3,11 +3,10 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getPosts } from '../../redux/actions/posts';
 import { Banner, List, TopBar } from '../../components';
-
 import { useCurrentIdAndFormContext } from '../../context/currentIdAndForm';
 import Form from './LocalComponents/Form/Form';
 import Post from './LocalComponents/Post/Post';
-import Avatar from './LocalComponents/Avatar/Avatar';
+import Dashboard from './LocalComponents/Dashboard/Dashboard';
 
 const Homepage = () => {
   const { setIsFormActive, isFormActive, currentId } =
@@ -27,7 +26,7 @@ const Homepage = () => {
           setActiveForm={setIsFormActive}
           isUserAvailable={isUserAvailable}
         />
-        {isUserAvailable && <Avatar />}
+        {isUserAvailable && <Dashboard />}
       </TopBar>
       {isFormActive && <Form />}
       <List>

@@ -1,14 +1,25 @@
-import { AUTH, LOGOUT } from '../constants';
+import { AUTH_ERROR, AUTH_FINISHED, AUTH_STARTED, LOGOUT } from '../constants';
 
-export default function auth(info = { authData: null }, action) {
+const initialState = {
+  data: [],
+  loading: false,
+  error: null,
+};
+
+export default function auth(state = initialState, action) {
   switch (action.type) {
-    case AUTH:
+    case AUTH_STARTED:
+      return { ...state, loading: true };
+    case AUTH_ERROR:
+      return { ...state, loading: false, error: action.payload.error };
+    case AUTH_FINISHED:
       localStorage.setItem('profile', JSON.stringify({ ...action?.payload }));
-      return { ...info, authData: action?.payload };
+      return { ...state, loading: false, data: action?.payload };
+
     case LOGOUT:
       localStorage.clear();
-      return { ...info, authData: null };
+      return { ...state, loading: false, data: null };
     default:
-      return info;
+      return state;
   }
 }
